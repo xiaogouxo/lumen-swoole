@@ -302,24 +302,18 @@ class Server
             $_SERVER[strtoupper($key)] = $value;
         }
 
-        if (property_exists($request, 'get')) {
-            $_GET = $request->get;
-        }
+        $_GET = isset($request->get) ? $request->get : array();
 
-        if (property_exists($request, 'post')) {
-            $_POST = $request->post;
-        }
+        $_POST = isset($request->post) ? $request->post : array();
 
-        if (property_exists($request, 'cookie')) {
-            $_COOKIE = $request->cookie;
-        }
+        $_COOKIE = isset($request->cookie) ? $request->cookie : array();
 
-        if (property_exists($request, 'files')) {
-            $_FILES = $request->files;
-        }
+        $_FILES = isset($request->files) ? $request->files : array();
 
-        if (property_exists($request, 'header')) {
-            foreach ($request->header as $key => $value) {
+        $header = isset($request->header) ? $request->header : array();
+
+        if ($header) {
+            foreach ($header as $key => $value) {
                 $_SERVER['HTTP_'.strtoupper($key)] = $value;
             }
         }
